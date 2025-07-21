@@ -9,6 +9,7 @@ Sonraki fazlarda SSO (Single Sign-On) entegrasyonu ile kimlik doğrulamalı (log
 * Uzun bağlantıların kolayca kısaltılması
 * Anonim (giriş yapmadan) link kısaltma
 * Kısaltılmış linklerin otomatik yönlendirmesi
+* Üretilen linklerin Sosyal Medyalarda paylaşımı
 * Temiz, modern ve hızlı kullanıcı arayüzü (Angular 20)
 * Linkler için tıklanıldığında temel istatistik bilgilerinin tutulması
 * Gelecek: SSO entegrasyonu ile kullanıcı bazlı link yönetimi ve istatistikler
