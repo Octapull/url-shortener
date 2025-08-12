@@ -1,16 +1,16 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { UrlShortenerComponent } from './components/url-shortener/url-shortener.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  template: `<h1>Hello, {{ title() }}</h1>`,
-  styles: [`
-    h1 {
-      color: blue;
-    }
-  `]
+  standalone: true,
+  imports: [UrlShortenerComponent],
+  template: `
+    <img src="/octapull-logo.png" alt="Octapull" class="brand logo" />
+    <div class="center-layout">
+      <app-url-shortener></app-url-shortener>
+    </div>
+  `
 })
 export class App {
-  protected readonly title = signal('url-shortener-ui');
 }

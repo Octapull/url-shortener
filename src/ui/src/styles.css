@@ -1,0 +1,38 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #ffb84d 0%, #ff8c42 50%, #ff6a00 100%);
+}
+
+.brand {
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #111;
+  font-size: 52px;
+}
+
+.brand.logo {
+  height: 56px;
+  width: auto;
+  font-size: 0; 
+}
+
+.center-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 138px; 
+  padding-left: 20px; 
+  padding-right: 16px;
+  padding-bottom: 32px;
+}
