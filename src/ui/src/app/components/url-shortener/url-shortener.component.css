@@ -1,6 +1,6 @@
 /* Card container */
 .card {
-  width: 24vw; /* current width */
+  width: 24vw; 
   max-width: 448px;
   min-width: 320px;
   min-height: 340px;
@@ -12,9 +12,8 @@
   flex-direction: column;
 }
 
-/* Compact mode for initial state (before shortening) */
 .card.card-compact {
-  min-height: 0; /* shrink container */
+  min-height: 0; 
 }
 
 .card-header {
@@ -105,9 +104,8 @@
   font-size: 14px;
 }
 
-/* In compact mode, keep button close to recaptcha */
 .card.card-compact .primary-btn {
-  margin-top: 8px; /* override the auto push-down */
+  margin-top: 8px; 
 }
 
 .primary-btn:hover { background-color: #e65f00; }

@@ -25,12 +25,11 @@ export class UrlShortenerComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     window.onRecaptchaLoad = () => this.renderRecaptcha();
-    // Try immediately in case script already loaded
     this.renderRecaptcha();
   }
 
   private renderRecaptcha(): void {
-    if (this.recaptchaWidgetId !== null) return; // already rendered
+    if (this.recaptchaWidgetId !== null) return; 
     const container = document.getElementById('recaptcha-container');
     if (container && window.grecaptcha && window.grecaptcha.render) {
       const siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Google public test key
@@ -41,7 +40,7 @@ export class UrlShortenerComponent implements AfterViewInit {
       });
       return;
     }
-    // Poll a few times until grecaptcha is ready
+    
     if (this.recaptchaTries < 20) {
       this.recaptchaTries++;
       setTimeout(() => this.renderRecaptcha(), 250);
