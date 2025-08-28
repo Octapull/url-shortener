@@ -1,21 +1,30 @@
 using api.Repositories;
-using api.Repositories.Impl;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace api.Services.Impl;
 
 public class RedirectService : IRedirectService
 {
     private readonly IShortUrlRepository _shortUrlRepository;
+    private readonly IClickStatService _clickStatService;
 
-    public RedirectService(IShortUrlRepository shortUrlRepository)
+    public RedirectService(
+        IShortUrlRepository shortUrlRepository,
+        IClickStatService clickStatService)
     {
         _shortUrlRepository = shortUrlRepository;
+        _clickStatService = clickStatService;
     }
 
-    public async Task<string?> GetLongUrlByCodeAsync(string code)
+    public async Task<string?> RedirectAsync(string code)
     {
-        var longUrl = await _shortUrlRepository.GetLongUrlByCodeAsync(code);
-        return longUrl;
+        var entity = await _shortUrlRepository.GetByCodeAsync(code);
+        if (entity == null)
+            return null;
+        
+        entity.ClickCount += 1;
+        entity.LastAccessedAt = DateTime.UtcNow;
+
+        await _shortUrlRepository.UpdateAsync(entity);
+        return entity.LongUrl;
     }
 }

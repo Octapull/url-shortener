@@ -11,15 +11,15 @@ public class CodeGenerator : ICodeGenerator
     {
         _shortLinkOptions = options.Value;
     }
-
+    
     public string GenerateCode()
     {
         var random = new Random();
-        var lenght = _shortLinkOptions.DefaultLength;
+        var length = _shortLinkOptions.DefaultLength;
         var chars = _shortLinkOptions.AllowedCharacters;
-        var code = new char[lenght];
+        var code = new char[length];
         
-        for(int i = 0; i < lenght; i++)
+        for(int i = 0; i < length; i++)
         {
             code[i] = chars[random.Next(chars.Length)];
         }

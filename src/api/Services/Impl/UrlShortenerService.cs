@@ -30,7 +30,7 @@ public class UrlShortenerService : IUrlShortenerService
             code = _codeGenerator.GenerateCode();
         } while (await _repository.IsCodeExistsAsync(code));
         
-        var shortUrl = $"{_shortLinkOptions.BaseUrl}/{code}";
+        var shortUrl = $"{_shortLinkOptions.BaseUrl}{code}";
         
         var shortUrlEntity = new ShortenedUrl
         {
@@ -38,10 +38,11 @@ public class UrlShortenerService : IUrlShortenerService
             LongUrl = request.LongUrl,
             ShortUrl = shortUrl,
             Code = code,
-            CreatedOnUtc = DateTime.UtcNow,
+            CreatedAt = DateTime.UtcNow,
         };
 
         await _repository.AddAsync(shortUrlEntity);
+        await _repository.SaveChangesAsync();
 
         return new UrlShortenResponseDto
         {

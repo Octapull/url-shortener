@@ -2,5 +2,5 @@ namespace api.Services;
 
 public interface IRedirectService
 {
-    public Task<string?> GetLongUrlByCodeAsync(string code);
+    public Task<string?> RedirectAsync(string code);
 }

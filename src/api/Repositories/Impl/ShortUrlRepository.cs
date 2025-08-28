@@ -16,19 +16,28 @@ public class ShortUrlRepository : IShortUrlRepository
     public async Task AddAsync(ShortenedUrl entity)
     {
         await _dbContext.AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(ShortenedUrl entity)
+    { 
+        _dbContext.ShortenedUrls.Update(entity);
     }
 
     public async Task<bool> IsCodeExistsAsync(string code)
     {
         return await _dbContext.ShortenedUrls.AnyAsync(s => s.Code == code);
     }
-
-    public async Task<string?> GetLongUrlByCodeAsync(string code)
+    
+    public async Task<ShortenedUrl?> GetByCodeAsync(string code)
     {
         return await _dbContext.ShortenedUrls
-            .Where(s => s.Code == code)
-            .Select(s => s.LongUrl)
-            .FirstOrDefaultAsync();
+            .SingleOrDefaultAsync(s => s.Code == code); 
     }
+
+    public async Task SaveChangesAsync()
+    {
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    
 }
