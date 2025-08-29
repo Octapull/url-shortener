@@ -1,0 +1,64 @@
+<div class="card" [class.card-compact]="!shortUrl">
+  <ng-container *ngIf="!shortUrl; else resultsBlock">
+    <div class="card-header">Shorten a long URL</div>
+    <div class="form-group">
+      <input
+        type="url"
+        class="link-input"
+        placeholder="Enter long link here"
+        [(ngModel)]="longUrl"
+      />
+    </div>
+    <div class="captcha-row">
+      <div id="recaptcha-container"></div>
+    </div>
+    <button class="primary-btn" (click)="shortenUrl()">Shorten URL</button>
+  </ng-container>
+
+  <ng-template #resultsBlock>
+    <div class="results-block">
+      <div class="results-label">Your long URL</div>
+      <div class="results-field">
+        <input type="text" class="link-input" [value]="longUrl" readonly />
+      </div>
+      <div class="results-label short-label">Short URL</div>
+      <div class="results-field">
+        <input type="text" class="link-input" [value]="shortUrl" readonly />
+      </div>
+      <div class="results-actions-row">
+        <div class="share-icons">
+          <span class="share-text">Share on:</span>
+          <a
+            [href]="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shortUrl)"
+            target="_blank"
+            title="Facebook"
+            class="social-icon facebook"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a
+            [href]="'https://twitter.com/intent/tweet?url=' + encodeURIComponent(shortUrl)"
+            target="_blank"
+            title="Twitter"
+            class="social-icon twitter"
+          >
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a
+            [href]="'https://reddit.com/submit?url=' + encodeURIComponent(shortUrl)"
+            target="_blank"
+            title="Reddit"
+            class="social-icon reddit"
+          >
+            <i class="fab fa-reddit-alien"></i>
+          </a>
+        </div>
+        <button (click)="copyToClipboard()" title="Copy" class="copy-btn results-copy-btn">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <button class="primary-btn shorten-another-btn" (click)="resetForm()">Shorten another</button>
+    </div>
+  </ng-template>
+</div>

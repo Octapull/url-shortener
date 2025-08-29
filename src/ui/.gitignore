@@ -1,0 +1,6 @@
+src/ui/.angular/
+src/ui/node_modules/
+.DS_Store
+src/ui/vite/
+.vite/
+.vite_cache/
