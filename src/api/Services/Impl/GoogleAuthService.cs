@@ -1,3 +1,5 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 using api.Configuration;
 using api.Domain.DTOs.Reponses;
 using Microsoft.Extensions.Options;
@@ -6,10 +8,10 @@ namespace api.Services.Impl;
 
 public class GoogleAuthService : IGoogleAuthService
 {
-    private readonly GoogleKeysOptions _googleOptions;
+    private readonly GoogleAuthOptions _googleOptions;
     private readonly HttpClient _httpClient;
 
-    public GoogleAuthService(IOptions<GoogleKeysOptions> googleOptions, HttpClient httpClient)
+    public GoogleAuthService(IOptions<GoogleAuthOptions> googleOptions, HttpClient httpClient)
     {
         _googleOptions = googleOptions.Value;
         _httpClient = httpClient;
@@ -26,7 +28,7 @@ public class GoogleAuthService : IGoogleAuthService
                $"&scope={scope}";
     }
     
-    public async Task<GoogleUserInfoResponse?> GetUserInfoAsync(string code)
+    public async Task<GoogleTokenPayload?> GetUserInfoAsync(string code)
     {
         var tokenResponse = await _httpClient.PostAsync(
             "https://oauth2.googleapis.com/token",
@@ -43,15 +45,14 @@ public class GoogleAuthService : IGoogleAuthService
             return null;
         
         var tokenResult = await tokenResponse.Content.ReadFromJsonAsync<GoogleTokenResponse>();
-        if (tokenResult?.AccessToken == null)
+        if (tokenResult?.IdToken == null)
             return null;
         
-        _httpClient.DefaultRequestHeaders.Authorization =
-            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", tokenResult.AccessToken);
-
-        var userInfo = await _httpClient.GetFromJsonAsync<GoogleUserInfoResponse>(
-            "https://www.googleapis.com/oauth2/v2/userinfo");
-
-        return userInfo;
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(tokenResult.IdToken);
+        
+        var payloadJson = JsonSerializer.Serialize(jwtToken.Payload);
+        return JsonSerializer.Deserialize<GoogleTokenPayload>(payloadJson);
     }
+    
 }

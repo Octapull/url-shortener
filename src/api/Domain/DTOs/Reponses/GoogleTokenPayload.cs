@@ -2,10 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace api.Domain.DTOs.Reponses;
 
-public class GoogleUserInfoResponse
+public class GoogleTokenPayload
 {
-
-    [JsonPropertyName("id")]
+    [JsonPropertyName("sub")]
     public string Id { get; set; } = string.Empty;
 
     [JsonPropertyName("email")]
@@ -13,5 +12,4 @@ public class GoogleUserInfoResponse
 
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;
-
 }

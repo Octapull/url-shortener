@@ -5,5 +5,6 @@ namespace api.Services;
 
 public interface IUserService
 {
-    Task<User> FindOrCreateAsync(GoogleUserInfoResponse googleUser);
+    Task<User> FindOrCreateAsync(GoogleTokenPayload googleUser);
+    Task<User?> GetByEmailAsync(string email);
 }

@@ -38,6 +38,24 @@ public class ShortUrlRepository : IShortUrlRepository
     {
         await _dbContext.SaveChangesAsync();
     }
-    
-    
+
+    public void Delete(ShortenedUrl url)
+    {
+        _dbContext.ShortenedUrls.Remove(url);
+    }
+
+    public async Task<IEnumerable<ShortenedUrl>> GetByUserIdAsync(Guid userId)
+    {
+        return await _dbContext.ShortenedUrls
+            .Where(u => u.UserId == userId)
+            .OrderByDescending(u => u.CreatedAt)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<ShortenedUrl>> GetAllAsync()
+    {
+        return await _dbContext.ShortenedUrls
+            .OrderByDescending(u => u.CreatedAt)
+            .ToListAsync();
+    }
 }

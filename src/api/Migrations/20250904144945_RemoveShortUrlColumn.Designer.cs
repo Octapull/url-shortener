@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using api.Data;
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250904144945_RemoveShortUrlColumn")]
+    partial class RemoveShortUrlColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,9 +48,6 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
@@ -73,12 +73,10 @@ namespace api.Migrations
                     b.Property<string>("Referer")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("ShortenedUrlId")
+                    b.Property<Guid>("ShortenedUrlId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ShortenedUrlId");
 
                     b.ToTable("UrlClickStats");
                 });
@@ -127,14 +125,6 @@ namespace api.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("api.Domain.Entities.UrlClickStat", b =>
-                {
-                    b.HasOne("api.Domain.Entities.ShortenedUrl", null)
-                        .WithMany()
-                        .HasForeignKey("ShortenedUrlId")
-                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("api.Domain.Entities.User", b =>

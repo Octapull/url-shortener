@@ -1,0 +1,60 @@
+<ng-container *ngIf="signedIn">
+  <div class="admin-panel" (click)="onToggle()">
+    <div class="admin-card" [style.height.px]="collapsedHeightPx" [style.background]="'#fff'">
+      <div class="admin-columns header-row">
+        <div class="col col-code">Short code</div>
+        <div class="col col-url">Long URL</div>
+        <div class="col col-created">Created at <button class="sort-btn" title="Sort" (click)="toggleSort($event)"><span class="tri-up">▲</span><span class="tri-down">▼</span></button></div>
+        <div class="col col-clicks">Clicks</div>
+      </div>
+      <div class="admin-rows" [class.empty]="links.length === 0">
+        <div class="empty-row" *ngIf="links.length === 0">You don’t have any short URL</div>
+        <div class="row" *ngFor="let item of sortedLinks | slice:0:10">
+          <div class="cell col-code">{{ item.shortCode }}</div>
+          <div class="cell col-url" title="{{ item.longUrl }}">{{ item.longUrl }}</div>
+          <div class="cell col-created">{{ item.createdAt | date:'dd.MM.yyyy' }}</div>
+          <div class="cell col-clicks">{{ item.clicks }}</div>
+        </div>
+      </div>
+      <div class="admin-continue-caret" *ngIf="hasMore"></div>
+      <div class="admin-hint"><em>Tap anywhere to open the panel</em></div>
+    </div>
+  </div>
+
+  <div class="admin-overlay" *ngIf="expanded" (click)="onClose($event)">
+    <div class="admin-overlay-window" (click)="$event.stopPropagation()">
+      <div class="overlay-header">
+        <div class="overlay-title"></div>
+        <button class="overlay-close" (click)="onClose($event)">✕</button>
+      </div>
+      <div class="overlay-columns" (click)="$event.stopPropagation()">
+        <div class="col col-code">Short code</div>
+        <div class="col col-url">Long URL</div>
+        <div class="col col-created">Created at <button class="sort-btn" title="Sort" (click)="toggleSort($event)"><span class="tri-up">▲</span><span class="tri-down">▼</span></button></div>
+        <div class="col col-clicks">Clicks</div>
+        <div class="col col-status">Status</div>
+        <div class="col col-actions">Actions</div>
+      </div>
+      <div class="overlay-rows">
+        <div class="row" *ngFor="let item of sortedLinks" (click)="$event.stopPropagation()">
+          <div class="cell col-code">{{ item.shortCode }}</div>
+          <div class="cell col-url" title="{{ item.longUrl }}">{{ item.longUrl }}</div>
+          <div class="cell col-created">{{ item.createdAt | date:'dd.MM.yyyy' }}</div>
+          <div class="cell col-clicks">{{ item.clicks }}</div>
+          <div class="cell col-status">{{ item.status }}</div>
+          <div class="cell col-actions">
+            <button class="icon-btn" title="Copy short URL" (click)="copyShort(item)">
+              <i class="fas fa-copy"></i>
+            </button>
+            <button *ngIf="isAdmin" class="icon-btn" title="Disable" (click)="disable(item)">
+              <i class="fas fa-times"></i>
+            </button>
+            <button class="icon-btn" title="Delete" (click)="delete(item)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

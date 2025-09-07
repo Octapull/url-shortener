@@ -13,10 +13,9 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
     
-    public async Task<User?> GetByProviderIdAsync(string provider, string providerId)
+    public async Task<User?> GetByEmailAsync(string email)
     {
-        return await _dbContext.Users
-            .SingleOrDefaultAsync(u => u.Provider == provider && u.ProviderId == providerId);
+        return await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
     }
 
     public async Task AddAsync(User user)

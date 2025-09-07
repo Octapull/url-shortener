@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using api.Configuration;
 using api.Data;
@@ -12,14 +13,16 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
 builder.Services.Configure<ShortLinkOptions>(builder.Configuration.GetSection("ShortLinkOptions"));
-builder.Services.Configure<GoogleKeysOptions>(builder.Configuration.GetSection("GoogleKeysOptions"));
+builder.Services.Configure<GoogleAuthOptions>(builder.Configuration.GetSection("GoogleAuthOptions"));
 builder.Services.Configure<RecaptchaOptions>(builder.Configuration.GetSection("RecaptchaOptions"));
+builder.Services.Configure<AdminOptions>(builder.Configuration.GetSection("AdminOptions"));
 
 
 builder.Services.AddScoped<IShortUrlRepository, ShortUrlRepository>();
@@ -32,6 +35,7 @@ builder.Services.AddScoped<IUrlShortenerService, UrlShortenerService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClickStatService, ClickStatService>();
+builder.Services.AddScoped<IPanelService, PanelService>();
 
 builder.Services.AddHttpClient<IGoogleAuthService, GoogleAuthService>();
 builder.Services.AddHttpClient<IRecaptchaService, RecaptchaService>();
@@ -42,6 +46,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         var jwtOptions = builder.Configuration
             .GetSection("JwtOptions")
             .Get<JwtOptions>();
+        
         options.TokenValidationParameters = new TokenValidationParameters()
         {
             ValidateIssuer = true,

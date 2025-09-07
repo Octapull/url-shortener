@@ -21,5 +21,11 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<User>()
             .HasIndex(u => new { u.Provider, u.ProviderId })
             .IsUnique();
+        
+        modelBuilder.Entity<UrlClickStat>()
+            .HasOne<ShortenedUrl>()
+            .WithMany()
+            .HasForeignKey(c => c.ShortenedUrlId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }
