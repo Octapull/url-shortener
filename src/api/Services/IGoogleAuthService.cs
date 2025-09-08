@@ -6,5 +6,5 @@ namespace api.Services;
 public interface IGoogleAuthService
 {
     string GenerateGoogleLoginUrl();
-    Task<GoogleUserInfoResponse?> GetUserInfoAsync(string code);
+    Task<GoogleTokenPayload?> GetUserInfoAsync(string code);
 }

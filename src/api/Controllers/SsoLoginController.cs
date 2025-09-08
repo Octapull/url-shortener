@@ -34,16 +34,16 @@ public class SsoLoginController : ControllerBase
 
         var user = await _userService.FindOrCreateAsync(googleUser);
         var token = _jwtService.GenerateToken(user);
-
-        return Ok(new
-        {
-            Token = token,
-            User = new
-            {
-                user.Name,
-                user.Email
-            }
-        });
+        
+        return Content($@"
+<script>
+    window.opener.postMessage({{
+        token: '{token}',
+        name: '{user.Name}',
+        email: '{user.Email}'
+    }}, '*');
+    window.close();
+</script>", "text/html");
     }
     
 }

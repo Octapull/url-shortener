@@ -12,6 +12,8 @@ public class User
     
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
     public DateTime? LastLoginAt { get; set; }
+
+    public bool IsAdmin { get; set; } = false;
     
     public ICollection<ShortenedUrl> ShortenedUrls { get; set; } = new List<ShortenedUrl>();
 }

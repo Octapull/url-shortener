@@ -1,0 +1,28 @@
+<div class="qs-wrapper">
+  <div class="qs-field">
+    <i class="fas fa-link qs-icon" aria-hidden="true"></i>
+
+    <input
+      *ngIf="!shortUrl"
+      type="url"
+      class="qs-input"
+      [(ngModel)]="longUrl"
+      placeholder="Enter long URL here"
+    />
+    <button *ngIf="!shortUrl" type="button" class="qs-btn" (click)="onShorten()">{{ isLoading ? '...' : 'Shorten' }}</button>
+
+    <input *ngIf="shortUrl" type="text" class="qs-input qs-readonly" [value]="shortUrl" readonly />
+    <button *ngIf="shortUrl" type="button" class="qs-copy" title="Copy" (click)="copy()">
+      <i class="fas fa-copy"></i>
+    </button>
+  </div>
+
+  <div *ngIf="shortUrl" class="qs-actions">
+    <button class="pill another" (click)="shortenAnother()">Shorten another</button>
+    <div class="share">
+      <button class="facebook" title="Facebook" (click)="shareUrl('facebook')"><i class="fab fa-facebook-f"></i></button>
+      <button class="twitter" title="Twitter" (click)="shareUrl('twitter')"><i class="fab fa-twitter"></i></button>
+      <button class="reddit" title="Reddit" (click)="shareUrl('reddit')"><i class="fab fa-reddit-alien"></i></button>
+    </div>
+  </div>
+</div>

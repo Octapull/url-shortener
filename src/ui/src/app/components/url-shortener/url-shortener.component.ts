@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ShortenerService } from '../../services/shortener.service';
 
 declare global {
   interface Window { onRecaptchaLoad: () => void; grecaptcha: any; }
@@ -21,7 +22,7 @@ export class UrlShortenerComponent implements AfterViewInit {
   private recaptchaWidgetId: number | null = null;
   private recaptchaTries = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private shortener: ShortenerService) {}
 
   ngAfterViewInit(): void {
     window.onRecaptchaLoad = () => this.renderRecaptcha();
@@ -32,7 +33,7 @@ export class UrlShortenerComponent implements AfterViewInit {
     if (this.recaptchaWidgetId !== null) return; 
     const container = document.getElementById('recaptcha-container');
     if (container && window.grecaptcha && window.grecaptcha.render) {
-      const siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Google public test key
+      const siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
       this.recaptchaWidgetId = window.grecaptcha.render(container, {
         sitekey: siteKey,
         callback: (token: string) => this.recaptchaToken = token,
@@ -40,7 +41,6 @@ export class UrlShortenerComponent implements AfterViewInit {
       });
       return;
     }
-    
     if (this.recaptchaTries < 20) {
       this.recaptchaTries++;
       setTimeout(() => this.renderRecaptcha(), 250);
@@ -49,11 +49,7 @@ export class UrlShortenerComponent implements AfterViewInit {
 
   shortenUrl() {
     if (!this.longUrl) return;
-
-    this.http.post<{ shortUrl: string }>(
-      'http://localhost:5051/api/shorten',
-      { LongUrl: this.longUrl }
-    ).subscribe({
+    this.shortener.shorten(this.longUrl, this.recaptchaToken).subscribe({
       next: (res) => this.shortUrl = res.shortUrl,
       error: (err) => console.error('Error:', err)
     });
@@ -61,14 +57,11 @@ export class UrlShortenerComponent implements AfterViewInit {
 
   copyToClipboard() {
     if (!this.shortUrl) return;
-
     navigator.clipboard.writeText(this.shortUrl).then(() => {
       const copyBtn = document.querySelector('.copy-btn') as HTMLElement;
       if (copyBtn) {
         copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.classList.remove('copied');
-        }, 2000);
+        setTimeout(() => { copyBtn.classList.remove('copied'); }, 2000);
       }
     });
   }

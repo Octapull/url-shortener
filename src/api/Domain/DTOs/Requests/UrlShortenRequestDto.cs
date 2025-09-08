@@ -7,6 +7,5 @@ public class UrlShortenRequestDto
     [Required]
     [Url]
     public string LongUrl { get; set; }
-    [Required]
-    public string RecaptchaToken { get; set; }
+    public string? RecaptchaToken { get; set; }
 }

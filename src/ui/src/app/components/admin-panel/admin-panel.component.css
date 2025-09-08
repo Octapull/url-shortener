@@ -1,0 +1,133 @@
+.admin-panel {
+  flex: 1;
+  max-width: 1800px; /* increased ~1.5x */
+  min-width: 480px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.admin-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+  border-radius: 16px !important;
+  padding: 12px 12px 14px 12px !important; /* extra bottom padding so hint sits inside */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+.admin-columns {
+  display: grid;
+  grid-template-columns: minmax(130px, 1.3fr) 3fr 1.4fr 1fr;
+  gap: 8px;
+  padding: 10px 8px;
+  background: #f2f2f2;
+  color: #333;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+}
+.admin-columns .col { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.admin-rows { display: grid; gap: 6px; padding-top: 8px; margin-bottom: 6px; }
+.row {
+  display: grid;
+  grid-template-columns: minmax(130px, 1.3fr) 3fr 1.4fr 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  background: linear-gradient(135deg, rgba(255, 193, 122, 0.22), rgba(255, 154, 82, 0.22));
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 10px;
+}
+
+.admin-continue-hint {
+  height: 10px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02), rgba(0,0,0,0));
+}
+
+.admin-hint { margin-top: 0; font-size: 13px; color: rgba(0,0,0,0.45); text-align: center; }
+
+.admin-continue-line {
+  height: 1px;
+  margin-top: 4px;
+  background: rgba(0,0,0,0.08);
+}
+
+.admin-continue-caret {
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid rgba(0,0,0,0.25);
+  margin: 4px auto 0 auto;
+}
+
+.cell { color: #222; font-size: 14px; }
+.col-url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.icon-btn {
+  border: 1px solid rgba(0,0,0,0.10);
+  background: inherit;
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+.icon-btn:hover { filter: brightness(0.98); }
+.icon-btn i { font-size: 12px; color: #333; }
+
+.admin-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+
+.admin-overlay-window {
+  width: min(1550px, calc(100% - 80px));
+  max-height: 66vh;
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  overflow: auto;
+}
+
+.overlay-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.overlay-title { font-weight: 800; color: #202020; }
+.overlay-close { border: none; background: transparent; font-size: 20px; cursor: pointer; color: #333; }
+.overlay-close:hover { color: #000; }
+
+.overlay-columns {
+  display: grid;
+  grid-template-columns: minmax(130px, 1.3fr) 3fr 1.4fr 1fr 1.1fr 1fr;
+  gap: 8px;
+  padding: 10px 8px;
+  background: #f2f2f2;
+  color: #333;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+}
+.overlay-columns .col { white-space: nowrap; }
+
+.overlay-rows { display: grid; gap: 6px; padding-top: 8px; }
+.overlay-rows .row {
+  display: grid;
+  grid-template-columns: minmax(130px, 1.3fr) 3fr 1.4fr 1fr 1.1fr 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  background: linear-gradient(135deg, rgba(255, 193, 122, 0.22), rgba(255, 154, 82, 0.22));
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 10px;
+}
+.overlay-rows .icon-btn { background: inherit; }
+
+.admin-rows.empty { display: grid; margin-bottom: 20px; }
+.empty-row { display: flex; align-items: center; justify-content: center; height: 44px; color: #555; background: linear-gradient(135deg, rgba(255, 193, 122, 0.15), rgba(255, 154, 82, 0.15)); border: 1px dashed rgba(0,0,0,0.08); border-radius: 10px; }
+
+.sort-btn { margin-left: 3px; padding: 0; height: auto; border: none; background: transparent; color: #666; cursor: pointer; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; vertical-align: middle; position: relative; top: 0.3px; }
+.sort-btn .tri-up { font-size: 8px; }
+.sort-btn .tri-down { font-size: 8px; margin-top: 0px; }
+.sort-btn:hover { color: #000; }

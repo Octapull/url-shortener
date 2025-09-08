@@ -1,0 +1,161 @@
+.content-wrapper {
+  display: flex;
+  align-items: center; 
+  gap: 60px;
+  max-width: 1200px;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.content-wrapper.signed-stack {
+  flex-direction: column;
+  align-items: center; 
+  gap: 28px;
+  width: 100%;
+  max-width: none; 
+}
+
+/* Center the shortener when stacked */
+.content-wrapper.signed-stack .component-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.collapsed-wide app-admin-panel .admin-panel { max-width: 1500px; width: 100%; margin: 0 auto; }
+
+.component-section {  }
+
+.text-content {
+  flex: 1;
+  max-width: 520px;
+  padding-top: 0;
+  min-width: 320px;
+  margin-top: 0;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #111;
+  margin: 0 0 18px 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.75rem;
+  color: #111;
+  margin: 0 0 20px 0;
+  font-weight: 500;
+}
+
+.description {
+  font-size: 1.125rem;
+  color: #111;
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.signin-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.signin-text {
+  font-style: italic;
+  color: #111;
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+.google-icon circle { fill: #fff; }
+
+.google-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 9999px;
+  border: 0.5px solid #c9c9c9;
+  background: #fff;
+  color: #131313;
+  cursor: pointer; 
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.google-btn:hover { background: #f9f9f9; }
+.google-btn:active { background: #f2f2f2; }
+
+.google-btn .google-icon { width: 18px; height: 18px; }
+.google-btn .google-icon circle { fill: #fff; }
+.google-btn-text { white-space: nowrap; }
+.google-btn { margin-top: 15px; }
+
+.signed-stack-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signed-stack-block .greeting {
+  font-weight: 800;
+  font-size: 2.4rem; 
+  text-align: center;
+  margin-bottom: 64px; 
+  background: linear-gradient(90deg, #2b2b2b 0%, #5b5b5b 50%, #2b2b2b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.signed-stack-block app-quick-shortener .qs-field {
+  width: 100%;
+  max-width: 1000px;
+}
+
+
+.signed-stack-block app-quick-shortener { display: block; width: 100%; }
+
+.top-right {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+}
+.admin-badge {
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+.logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  border: none;
+  background: #e53935;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.logout-btn:hover { background: #c62828; }
+.logout-btn i { font-size: 14px; }
