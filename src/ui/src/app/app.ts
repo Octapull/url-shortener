@@ -5,6 +5,7 @@ import { UrlShortenerComponent } from './components/url-shortener/url-shortener.
 import { AdminPanelComponent, AdminLinkItem } from './components/admin-panel/admin-panel.component';
 import { QuickShortenerComponent } from './components/quick-shortener/quick-shortener.component';
 import { UrlsService, UrlPanelDto } from './services/urls.service';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -53,7 +54,7 @@ export class App implements OnDestroy {
   }
 
   onGoogleSignIn(): void {
-    const url = 'http://localhost:5051/auth/google-login';
+    const url = `${environment.authUrl}/google-login`;
     window.open(url, '_blank', 'width=500,height=600');
   }
 
